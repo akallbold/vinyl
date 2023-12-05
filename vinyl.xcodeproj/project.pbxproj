@@ -11,6 +11,7 @@
 		00B4A7112B14DA07000BBDF0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B4A7102B14DA07000BBDF0 /* ContentView.swift */; };
 		00B4A7132B14DA0A000BBDF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00B4A7122B14DA0A000BBDF0 /* Assets.xcassets */; };
 		00B4A7162B14DA0A000BBDF0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00B4A7152B14DA0A000BBDF0 /* Preview Assets.xcassets */; };
+		00B4A71E2B14DD28000BBDF0 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B4A71D2B14DD27000BBDF0 /* ViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,8 @@
 		00B4A7102B14DA07000BBDF0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		00B4A7122B14DA0A000BBDF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		00B4A7152B14DA0A000BBDF0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		00B4A71C2B14DA95000BBDF0 /* vinyl.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = vinyl.entitlements; sourceTree = "<group>"; };
+		00B4A71D2B14DD27000BBDF0 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +54,10 @@
 		00B4A70D2B14DA07000BBDF0 /* vinyl */ = {
 			isa = PBXGroup;
 			children = (
+				00B4A71C2B14DA95000BBDF0 /* vinyl.entitlements */,
 				00B4A70E2B14DA07000BBDF0 /* vinylApp.swift */,
 				00B4A7102B14DA07000BBDF0 /* ContentView.swift */,
+				00B4A71D2B14DD27000BBDF0 /* ViewModel.swift */,
 				00B4A7122B14DA0A000BBDF0 /* Assets.xcassets */,
 				00B4A7142B14DA0A000BBDF0 /* Preview Content */,
 			);
@@ -138,6 +143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00B4A7112B14DA07000BBDF0 /* ContentView.swift in Sources */,
+				00B4A71E2B14DD28000BBDF0 /* ViewModel.swift in Sources */,
 				00B4A70F2B14DA07000BBDF0 /* vinylApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,12 +275,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = vinyl/vinyl.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"vinyl/Preview Content\"";
 				DEVELOPMENT_TEAM = 499MHWRALR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Use microphone to send music to shazam.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -298,12 +306,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = vinyl/vinyl.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"vinyl/Preview Content\"";
 				DEVELOPMENT_TEAM = 499MHWRALR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Use microphone to send music to shazam.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
