@@ -5,100 +5,109 @@ struct ContentView: View {
     @State private var rotationAngle: Double = -30
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.verticalSizeClass) var verticalSizeClass
-    @State private var textColor: Color = .gray
+    @State private var textColor: Color = .black
     @State private var backgroundColor: Color = .black.opacity(0.7)
     @State private var loadedImage: UIImage?
     
     var body: some View {
-        
         NavigationView {
-                   ZStack {
-                       backgroundLayer
-                       mainContentLayer
-                   }
-                   .navigationTitle("Vinyl").foregroundColor(textColor)
-                   .padding()
-               }
+            GeometryReader { geo in
+                ZStack {
+                    backgroundLayer
+                    mainContentLayer
+                }
+                .frame(width: geo.size.width, height: geo.size.height)
+            }
+            .navigationTitle("Vinyl").foregroundColor(textColor)
+            .padding()
+        }
     }
 
     private var backgroundLayer: some View {
+        ZStack{
+        
         GeometryReader { geo in
-            if let loadedImage = loadedImage {
-                Image(uiImage: loadedImage)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-                    .blur(radius: 20)
-                    .scaleEffect(1.2)
-                    .edgesIgnoringSafeArea(.all)
-                    .onAppear {
-//                        analyzeImageBrightness(image: loadedImage)
-                    }
-                    .background(backgroundColor)
-            } else {
                 AsyncImage(url: viewModel.currentItem?.artworkURL) { image in
                     image.image?.resizable().scaledToFit()
                 }
                 .scaledToFill()
-                .frame(width: geo.size.width, height: geo.size.height)
                 .blur(radius: 20)
                 .scaleEffect(1.2)
                 .edgesIgnoringSafeArea(.all)
+            Rectangle().fill(Color.white.opacity(0.30)).frame(width:geo.size.width, height: geo.size.height).scaleEffect(2.0).edgesIgnoringSafeArea(.all)
+
             }
-         
         }
+
     }
 
     private var mainContentLayer: some View {
         Group {
             if horizontalSizeClass == .compact && verticalSizeClass == .regular {
                 // Vertical Layout
-                VStack {
-                    vinylAndArm
-                    Text(String(viewModel.currentItem?.artist ?? "No artist found")).foregroundColor(textColor)
-                    Spacer()
-                    actionButton
+                GeometryReader { geo in
+                    VStack {
+                        vinylAndArm
+                        Text(String(viewModel.currentItem?.artist ?? "No artist found")).foregroundColor(textColor)
+                        Spacer()
+                        actionButton
+                    }.position(x: geo.size.width/2, y: geo.size.height/2)
                 }
             } else {
                 // Horizontal Layout
-                HStack {
-                    vinylAndArm
-                    Spacer()
-                    Text(String(viewModel.currentItem?.artist ?? "No artist found")).foregroundColor(textColor)
-                    actionButton
+                GeometryReader { geo in
+                    HStack {
+                        vinylAndArm
+                        Spacer()
+                        VStack{
+                            Text(String(viewModel.currentItem?.artist ?? "No artist found")).foregroundColor(textColor)
+                            actionButton
+                        }
+                        Spacer()
+                       
+                    }.position(x: geo.size.width/2, y: geo.size.height/2)
                 }
             }
         }
     }
 
     private var vinylAndArm: some View {
-        ZStack {
-            AsyncImage(url: viewModel.currentItem?.artworkURL) { image in
-                image.image?.resizable().scaledToFit()
-            }
-//            Image("lauryn")
-            .scaledToFit()
-            .scaleEffect(0.5)
-            .spinning()
-
-            Image("disc")
-            .resizable()
-            .scaledToFill()
-            .frame(width: 280, height: 280)
-//            .background(Color.red)
-            .spinning()
+        GeometryReader { geo in
+            
+            ZStack {
+                ZStack {
+//                    // Background for the artwork (to maintain consistent layout)
+//                    Circle()
+//                        .foregroundColor(.clear)
+                    
+                    // Artwork Image
+                    AsyncImage(url: viewModel.currentItem?.artworkURL) { image in
+                        image.image?.resizable().scaledToFit()
+                    }
+                    .scaledToFit()
+                    .scaleEffect(0.5)
+                    
+                    // Vinyl Disc Image
+                    Image("disc")
+                        .resizable()
+                        .scaledToFill()
+                }
+                .spinning() // Apply spinning to the entire ZStack
+                .frame(width: 300, height: 300)
+                .fixedSize()
+                //               .background(Color.clear)
+                
                 
                 Image("arm")
                     .resizable()
                     .scaledToFill()
                     .frame(width: 100, height: 150)
-//                    .background(Color.green)
                     .rotationEffect(.degrees(rotationAngle), anchor: .topTrailing)
                     .offset(x: 90, y: -60)
+            }
         }
         .frame(width: 300, height: 300, alignment: .center)
-//        .offset(x: -10, y: 0)
-//        .background(Color.yellow)
+        
     }
 
     private var actionButton: some View {
@@ -193,22 +202,22 @@ struct ContentView_Previews: PreviewProvider {
 
 // FROM CHATGPT You can easily convert a UIImage to a SwiftUI Image using Image(uiImage: myUIImage). This conversion is handy when you need to use both UIKit and SwiftUI in the same app.
 
-struct AsyncImageLoader: View {
-    let url: URL?
-    @Binding var loadedImage: UIImage?
-
-    var body: some View {
-        AsyncImage(url: url) { phase in
-            if let image = phase.image {
-                Image(uiImage: image)
-                    .resizable()
-                    .onAppear {
-                        self.loadedImage = image
-                    }
-            } else {
-                // Placeholder or Progress View
-                Color.gray
-            }
-        }
-    }
-}
+//struct AsyncImageLoader: View {
+//    let url: URL?
+//    @Binding var loadedImage: UIImage?
+//
+//    var body: some View {
+//        AsyncImage(url: url) { phase in
+//            if let image = phase.image {
+//                Image(uiImage: image)
+//                    .resizable()
+//                    .onAppear {
+//                        self.loadedImage = image
+//                    }
+//            } else {
+//                // Placeholder or Progress View
+//                Color.gray
+//            }
+//        }
+//    }
+//}
